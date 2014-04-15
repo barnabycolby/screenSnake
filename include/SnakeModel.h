@@ -2,6 +2,8 @@
 #define SNAKE_MODEL_H
 
 #include "model/Square.h"
+#include "model/SnakeSquare.h"
+#include "model/FoodSquare.h"
 
 #include <vector>
 
@@ -15,12 +17,17 @@ private:
 	int gridWidth;
 	int gridHeight;
 
-//	vector<Square> *squares
+	vector<SnakeSquare> *snake;
+	FoodSquare *food;
 
 public:
 	int getGridWidth();
 	int getGridHeight();
 	vector<vector<SquareType>*> *getGrid();
+
+private:
+	void generateSnake();
+	void moveFood();
 };
 
 #endif

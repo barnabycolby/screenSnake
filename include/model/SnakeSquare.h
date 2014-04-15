@@ -5,6 +5,7 @@
 
 class SnakeSquare : public Square {
 public:
+	SnakeSquare(int x, int y);
 	const SquareType getType() const;
 };
 

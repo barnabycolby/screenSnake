@@ -3,9 +3,20 @@
 #include "model/SnakeSquare.h"
 #include "model/FoodSquare.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 SnakeModel::SnakeModel()
 : gridWidth(30), gridHeight(15)
-{}
+{
+	// Seed the random number used for generating the foods position
+	srand(time(NULL));
+
+	// Generate the snake and food
+	this->generateSnake();
+	this->food = new FoodSquare(0, 0);
+	this->moveFood();
+}
 
 int SnakeModel::getGridWidth() {
 	return this->gridWidth;
@@ -27,13 +38,47 @@ vector<vector<SquareType>*> *SnakeModel::getGrid() {
 	}
 
 	// Add snake squares
-	for (int i = 0; i < 5; i++) {
-		grid->at(7)->at(8+i) = SNAKE;
+	for (SnakeSquare square : *(this->snake)) {
+		grid->at(square.getY())->at(square.getX()) = SNAKE;
 	}
 
 	// Add food square
-	grid->at(2)->at(15) = FOOD;
+	grid->at(this->food->getY())->at(this->food->getX()) = FOOD;
 	
 	// Return
 	return grid;
+}
+
+void SnakeModel::generateSnake() {
+	vector<SnakeSquare> *newSnake = new vector<SnakeSquare>();
+
+	int centerx = this->getGridWidth() / 2;
+	int centery = this->getGridHeight() / 2;
+	newSnake->push_back(*(new SnakeSquare(centerx, centery)));
+
+	this->snake = newSnake;
+}
+
+void SnakeModel::moveFood() {
+	// Generate the new x and y
+	int randomX, randomY;
+	while (true) {
+		// Generate random coordinates
+		randomX = rand() % (this->getGridWidth() + 1);
+		randomY = rand() % (this->getGridHeight() + 1);
+
+		// Check whether the coordinates are empty or not
+		for (SnakeSquare snakeSquare : *(this->snake)) {
+			if (snakeSquare.getX() == randomX || snakeSquare.getY() == randomY) {
+				continue;
+			}
+		}
+
+		// The square must be valid!
+		break;
+	}
+
+	// Set the foods new position
+	this->food->setX(randomX);
+	this->food->setY(randomY);
 }
