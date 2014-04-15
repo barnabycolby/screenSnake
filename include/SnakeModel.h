@@ -15,10 +15,12 @@ private:
 	int gridWidth;
 	int gridHeight;
 
+//	vector<Square> *squares
+
 public:
 	int getGridWidth();
 	int getGridHeight();
-	vector<vector<Square*>*> *getGrid();
+	vector<vector<SquareType>*> *getGrid();
 };
 
 #endif
