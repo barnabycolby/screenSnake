@@ -5,11 +5,11 @@
 
 int main(int argc, char* argv[]) {
 	// Initialise the model
-	const SnakeModel* snakeModel = new SnakeModel();
+	SnakeModel* snakeModel = new SnakeModel();
 
 	// Initialise the view
 	QApplication *qApplication = new QApplication(argc, argv);
-	const SnakeView* snakeView = new SnakeView(snakeModel);
+	SnakeView* snakeView = new SnakeView(snakeModel);
 
 	// Execute the application
 	int returnValue = qApplication->exec();

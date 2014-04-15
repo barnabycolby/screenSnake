@@ -8,13 +8,13 @@
 class SnakeView : public QWidget {
 public:
 	// Constructor
-	SnakeView(const SnakeModel *snakeModel);
+	SnakeView(SnakeModel *snakeModel);
+
+private:
+	SnakeModel *model;
 
 protected:
 	virtual void paintEvent(QPaintEvent *paintEvent);
-
-private:
-	const SnakeModel *model;
 };
 
 #endif
