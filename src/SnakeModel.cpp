@@ -64,8 +64,8 @@ void SnakeModel::moveFood() {
 	int randomX, randomY;
 	while (true) {
 		// Generate random coordinates
-		randomX = rand() % (this->getGridWidth() + 1);
-		randomY = rand() % (this->getGridHeight() + 1);
+		randomX = rand() % this->getGridWidth();
+		randomY = rand() % this->getGridHeight();
 
 		// Check whether the coordinates are empty or not
 		for (SnakeSquare snakeSquare : *(this->snake)) {
