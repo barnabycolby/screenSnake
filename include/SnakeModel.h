@@ -4,8 +4,10 @@
 #include "model/Square.h"
 #include "model/SnakeSquare.h"
 #include "model/FoodSquare.h"
+#include "SnakeDirection.h"
 
 #include <vector>
+#include <forward_list>
 
 using namespace std;
 
@@ -17,13 +19,16 @@ private:
 	int gridWidth;
 	int gridHeight;
 
-	vector<SnakeSquare> *snake;
+	forward_list<SnakeSquare*> *snake;
 	FoodSquare *food;
+
+	SnakeDirection direction;
 
 public:
 	int getGridWidth();
 	int getGridHeight();
 	vector<vector<SquareType>*> *getGrid();
+	void update();
 
 private:
 	void generateSnake();

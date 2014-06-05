@@ -6,8 +6,10 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <iostream>
+
 SnakeModel::SnakeModel()
-: gridWidth(30), gridHeight(15)
+: gridWidth(30), gridHeight(15), direction(NORTH)
 {
 	// Seed the random number used for generating the foods position
 	srand(time(NULL));
@@ -38,8 +40,8 @@ vector<vector<SquareType>*> *SnakeModel::getGrid() {
 	}
 
 	// Add snake squares
-	for (SnakeSquare square : *(this->snake)) {
-		grid->at(square.getY())->at(square.getX()) = SNAKE;
+	for (SnakeSquare *square : *(this->snake)) {
+		grid->at(square->getY())->at(square->getX()) = SNAKE;
 	}
 
 	// Add food square
@@ -50,11 +52,11 @@ vector<vector<SquareType>*> *SnakeModel::getGrid() {
 }
 
 void SnakeModel::generateSnake() {
-	vector<SnakeSquare> *newSnake = new vector<SnakeSquare>();
+	forward_list<SnakeSquare*> *newSnake = new forward_list<SnakeSquare*>();
 
 	int centerx = this->getGridWidth() / 2;
 	int centery = this->getGridHeight() / 2;
-	newSnake->push_back(*(new SnakeSquare(centerx, centery)));
+	newSnake->push_front(new SnakeSquare(centerx, centery));
 
 	this->snake = newSnake;
 }
@@ -68,8 +70,8 @@ void SnakeModel::moveFood() {
 		randomY = rand() % this->getGridHeight();
 
 		// Check whether the coordinates are empty or not
-		for (SnakeSquare snakeSquare : *(this->snake)) {
-			if (snakeSquare.getX() == randomX || snakeSquare.getY() == randomY) {
+		for (SnakeSquare *snakeSquare : *(this->snake)) {
+			if (snakeSquare->getX() == randomX || snakeSquare->getY() == randomY) {
 				continue;
 			}
 		}
@@ -81,4 +83,7 @@ void SnakeModel::moveFood() {
 	// Set the foods new position
 	this->food->setX(randomX);
 	this->food->setY(randomY);
+}
+
+void SnakeModel::update() {
 }

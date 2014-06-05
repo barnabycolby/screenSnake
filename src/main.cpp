@@ -2,6 +2,7 @@
 
 #include "SnakeModel.h"
 #include "SnakeView.h"
+#include "GameUpdater.h"
 
 int main(int argc, char* argv[]) {
 	// Initialise the model
@@ -11,11 +12,16 @@ int main(int argc, char* argv[]) {
 	QApplication *qApplication = new QApplication(argc, argv);
 	SnakeView* snakeView = new SnakeView(snakeModel);
 
+	// Start a thread to udpate the model on a timer
+	GameUpdater *gameUpdater = new GameUpdater(qApplication, snakeModel, snakeView);
+	gameUpdater->start();
+
 	// Execute the application
 	int returnValue = qApplication->exec();
 
 	// Cleanup
 	delete snakeView;
+	delete gameUpdater;
 	delete snakeModel;
 	delete qApplication;
 
