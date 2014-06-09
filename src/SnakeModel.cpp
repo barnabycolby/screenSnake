@@ -126,3 +126,7 @@ void SnakeModel::update() {
 		squareToMove->setY(newY);
 	}
 }
+
+void SnakeModel::setDirection(SnakeDirection newDirection) {
+	this->direction = newDirection;
+}

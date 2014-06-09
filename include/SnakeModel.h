@@ -29,6 +29,7 @@ public:
 	int getGridHeight();
 	vector<vector<SquareType>*> *getGrid();
 	void update();
+	void setDirection(SnakeDirection newDirection);
 
 private:
 	void generateSnake();
