@@ -12,18 +12,29 @@ SnakeController::SnakeController(SnakeModel *snakeModel)
 }
 
 void SnakeController::keyPressEvent(QKeyEvent *event) {
+	// Get the current direction of the snake to prevent reversing it's direction
+	SnakeDirection currentDirection = this->snakeModel->getDirection();
+
 	switch (event->key()) {
 	case Qt::Key_Left:
-		this->snakeModel->setDirection(WEST);
+		if (currentDirection != EAST) {
+			this->snakeModel->setDirection(WEST);
+		}
 		break;
 	case Qt::Key_Up:
-		this->snakeModel->setDirection(NORTH);
+		if (currentDirection != SOUTH) {
+			this->snakeModel->setDirection(NORTH);
+		}
 		break;
 	case Qt::Key_Right:
-		this->snakeModel->setDirection(EAST);
+		if (currentDirection != WEST) {
+			this->snakeModel->setDirection(EAST);
+		}
 		break;
 	case Qt::Key_Down:
-		this->snakeModel->setDirection(SOUTH);
+		if (currentDirection != NORTH) {
+			this->snakeModel->setDirection(SOUTH);
+		}
 		break;
 
 	// If we do not handle the key event, it should be passed to the super method

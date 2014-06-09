@@ -86,6 +86,9 @@ void SnakeModel::moveFood() {
 }
 
 void SnakeModel::update() {
+	// Set the direction
+	this->direction = this->directionToSet;
+
 	// Calculate the position of the next square
 	SnakeSquare *snakeHead = this->snake->front();
 	int newX = snakeHead->getX();
@@ -128,5 +131,9 @@ void SnakeModel::update() {
 }
 
 void SnakeModel::setDirection(SnakeDirection newDirection) {
-	this->direction = newDirection;
+	this->directionToSet = newDirection;
+}
+
+SnakeDirection SnakeModel::getDirection() {
+	return this->direction;
 }

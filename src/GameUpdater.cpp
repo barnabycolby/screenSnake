@@ -6,7 +6,7 @@ GameUpdater::GameUpdater(QApplication *qApplication, SnakeModel *snakeModel, Sna
 
 void GameUpdater::run() {
 	// Initialise a timer
-	this->startTimer(1000);
+	this->startTimer(300);
 
 	// Start an event loop for this thread so that it can use a timer
 	this->exec();

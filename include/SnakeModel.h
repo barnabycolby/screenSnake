@@ -23,6 +23,7 @@ private:
 	FoodSquare *food;
 
 	SnakeDirection direction;
+	SnakeDirection directionToSet;
 
 public:
 	int getGridWidth();
@@ -30,6 +31,7 @@ public:
 	vector<vector<SquareType>*> *getGrid();
 	void update();
 	void setDirection(SnakeDirection newDirection);
+	SnakeDirection getDirection();
 
 private:
 	void generateSnake();
