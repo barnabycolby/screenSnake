@@ -52,7 +52,7 @@ vector<vector<SquareType>*> *SnakeModel::getGrid() {
 }
 
 void SnakeModel::generateSnake() {
-	forward_list<SnakeSquare*> *newSnake = new forward_list<SnakeSquare*>();
+	list<SnakeSquare*> *newSnake = new list<SnakeSquare*>();
 
 	int centerx = this->getGridWidth() / 2;
 	int centery = this->getGridHeight() / 2;
@@ -86,4 +86,43 @@ void SnakeModel::moveFood() {
 }
 
 void SnakeModel::update() {
+	// Calculate the position of the next square
+	SnakeSquare *snakeHead = this->snake->front();
+	int newX = snakeHead->getX();
+	int newY = snakeHead->getY();
+	switch (this->direction) {
+	case NORTH:
+		newY -= 1;
+		break;
+	case EAST:
+		newX += 1;
+		break;
+	case SOUTH:
+		newY += 1;
+		break;
+	case WEST:
+		newX -= 1;
+		break;
+	}
+
+	// If the next square is a food square
+	if (newX == this->food->getX() && newY == this->food->getY()) {
+		// Add a new square to the front of the list
+		SnakeSquare *newSquare = new SnakeSquare(newX, newY);
+		this->snake->push_front(newSquare);
+
+		// Move the food
+		this->moveFood();
+	}
+
+	else {
+		// Move the last square in the list to the front
+		SnakeSquare *squareToMove = this->snake->back();
+		this->snake->pop_back();
+		this->snake->push_front(squareToMove);
+		
+		// Set the new coordinates of the head
+		squareToMove->setX(newX);
+		squareToMove->setY(newY);
+	}
 }

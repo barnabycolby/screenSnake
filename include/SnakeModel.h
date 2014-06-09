@@ -7,7 +7,7 @@
 #include "SnakeDirection.h"
 
 #include <vector>
-#include <forward_list>
+#include <list>
 
 using namespace std;
 
@@ -19,7 +19,7 @@ private:
 	int gridWidth;
 	int gridHeight;
 
-	forward_list<SnakeSquare*> *snake;
+	list<SnakeSquare*> *snake;
 	FoodSquare *food;
 
 	SnakeDirection direction;
