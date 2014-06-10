@@ -64,21 +64,14 @@ void SnakeModel::generateSnake() {
 void SnakeModel::moveFood() {
 	// Generate the new x and y
 	int randomX, randomY;
-	while (true) {
+
+	// Keep generating new coordinates until we find an empty square
+	do {
 		// Generate random coordinates
 		randomX = rand() % this->getGridWidth();
 		randomY = rand() % this->getGridHeight();
-
-		// Check whether the coordinates are empty or not
-		for (SnakeSquare *snakeSquare : *(this->snake)) {
-			if (snakeSquare->getX() == randomX || snakeSquare->getY() == randomY) {
-				continue;
-			}
-		}
-
-		// The square must be valid!
-		break;
 	}
+	while (coordinatesContainSnake(randomX, randomY));
 
 	// Set the foods new position
 	this->food->setX(randomX);
