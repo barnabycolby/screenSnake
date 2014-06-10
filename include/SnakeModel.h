@@ -29,13 +29,14 @@ public:
 	int getGridWidth();
 	int getGridHeight();
 	vector<vector<SquareType>*> *getGrid();
-	void update();
+	bool update();
 	void setDirection(SnakeDirection newDirection);
 	SnakeDirection getDirection();
 
 private:
 	void generateSnake();
 	void moveFood();
+	bool coordinatesContainSnake(int x, int y);
 };
 
 #endif

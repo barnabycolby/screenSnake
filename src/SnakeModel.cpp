@@ -85,7 +85,7 @@ void SnakeModel::moveFood() {
 	this->food->setY(randomY);
 }
 
-void SnakeModel::update() {
+bool SnakeModel::update() {
 	// Set the direction
 	this->direction = this->directionToSet;
 
@@ -108,6 +108,12 @@ void SnakeModel::update() {
 		break;
 	}
 
+	// If the new coordinates are invalid then we should exit the game
+	if (newX < 0 || newX > this->getGridWidth()-1 || newY < 0 || newY > this->getGridHeight()-1
+		|| coordinatesContainSnake(newX, newY)) {
+		return false;
+	}
+
 	// If the next square is a food square
 	if (newX == this->food->getX() && newY == this->food->getY()) {
 		// Add a new square to the front of the list
@@ -128,6 +134,8 @@ void SnakeModel::update() {
 		squareToMove->setX(newX);
 		squareToMove->setY(newY);
 	}
+
+	return true;
 }
 
 void SnakeModel::setDirection(SnakeDirection newDirection) {
@@ -136,4 +144,16 @@ void SnakeModel::setDirection(SnakeDirection newDirection) {
 
 SnakeDirection SnakeModel::getDirection() {
 	return this->direction;
+}
+
+bool SnakeModel::coordinatesContainSnake(int x, int y) {
+	bool coordinatesContainSnake = false;
+	for (SnakeSquare *snakeSquare : *(this->snake)) {
+		if (snakeSquare->getX() == x && snakeSquare->getY() == y) {
+			coordinatesContainSnake = true;
+			break;
+		}
+	}
+
+	return coordinatesContainSnake;
 }

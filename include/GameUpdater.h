@@ -16,6 +16,7 @@ protected:
 	void timerEvent(QTimerEvent *event);
 
 private:
+	QApplication *qApplication;
 	SnakeModel *snakeModel;
 	SnakeView *snakeView;
 };
