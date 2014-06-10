@@ -9,6 +9,8 @@
 #include <vector>
 #include <list>
 
+#include <QtCore/QMutex>
+
 using namespace std;
 
 class SnakeModel {
@@ -23,6 +25,7 @@ private:
 	list<SnakeSquare*> *snake;
 	FoodSquare *food;
 
+	QMutex *directionMutex;
 	SnakeDirection direction;
 	SnakeDirection directionToSet;
 

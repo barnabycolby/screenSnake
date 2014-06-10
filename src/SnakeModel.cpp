@@ -16,6 +16,9 @@ SnakeModel::SnakeModel()
 	this->generateSnake();
 	this->food = new FoodSquare(0, 0);
 	this->moveFood();
+
+	// Instantiate the direction mutex object
+	this->directionMutex = new QMutex();
 }
 
 int SnakeModel::getGridWidth() {
@@ -78,7 +81,9 @@ void SnakeModel::moveFood() {
 
 bool SnakeModel::update() {
 	// Set the direction
+	this->directionMutex->lock();
 	this->direction = this->directionToSet;
+	this->directionMutex->unlock();
 
 	// Calculate the position of the next square
 	SnakeSquare *snakeHead = this->snake->front();
@@ -130,7 +135,9 @@ bool SnakeModel::update() {
 }
 
 void SnakeModel::setDirection(SnakeDirection newDirection) {
+	this->directionMutex->lock();
 	this->directionToSet = newDirection;
+	this->directionMutex->unlock();
 }
 
 SnakeDirection SnakeModel::getDirection() {
@@ -156,4 +163,6 @@ SnakeModel::~SnakeModel() {
 		delete snakeSquare;
 	}
 	delete this->snake;
+
+	delete this->directionMutex;
 }
