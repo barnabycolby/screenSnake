@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include <iostream>
-
 SnakeModel::SnakeModel()
 : gridWidth(30), gridHeight(15), direction(NORTH)
 {
