@@ -2,10 +2,8 @@
 
 #include <QtGui/QKeyEvent>
 
-#include <iostream>
-
-SnakeController::SnakeController(SnakeModel *snakeModel)
-: QWidget(0), snakeModel(snakeModel)
+SnakeController::SnakeController(QApplication *qApplication, GameUpdater *gameUpdater, SnakeModel *snakeModel)
+: QWidget(0), qApplication(qApplication), gameUpdater(gameUpdater), snakeModel(snakeModel)
 {
 	// Grab the keyboard to make sure that the controller gets all of the keyboard input
 	this->grabKeyboard();
@@ -16,6 +14,7 @@ void SnakeController::keyPressEvent(QKeyEvent *event) {
 	SnakeDirection currentDirection = this->snakeModel->getDirection();
 
 	switch (event->key()) {
+	// Handle direction keys
 	case Qt::Key_Left:
 		if (currentDirection != EAST) {
 			this->snakeModel->setDirection(WEST);
@@ -35,6 +34,13 @@ void SnakeController::keyPressEvent(QKeyEvent *event) {
 		if (currentDirection != NORTH) {
 			this->snakeModel->setDirection(SOUTH);
 		}
+		break;
+
+	// We should exit on ESC
+	case Qt::Key_Escape:
+		this->gameUpdater->quit();
+		this->qApplication->quit();
+		return;
 		break;
 
 	// If we do not handle the key event, it should be passed to the super method
