@@ -26,6 +26,7 @@ int main(int argc, char* argv[]) {
 	// Cleanup
 	delete snakeView;
 	delete gameUpdater;
+	delete snakeController;
 	delete snakeModel;
 	delete qApplication;
 

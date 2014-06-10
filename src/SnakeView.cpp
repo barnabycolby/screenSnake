@@ -51,4 +51,10 @@ void SnakeView::paintEvent(QPaintEvent *) {
 			}
 		}
 	}
+
+	// Delete the grid from the heap
+	for (vector<SquareType> *row : *squares) {
+		delete row;
+	}
+	delete squares;
 }

@@ -148,3 +148,12 @@ bool SnakeModel::coordinatesContainSnake(int x, int y) {
 
 	return coordinatesContainSnake;
 }
+
+SnakeModel::~SnakeModel() {
+	delete this->food;
+
+	for (SnakeSquare *snakeSquare : *(this->snake)) {
+		delete snakeSquare;
+	}
+	delete this->snake;
+}

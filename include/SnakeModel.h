@@ -14,6 +14,7 @@ using namespace std;
 class SnakeModel {
 public:
 	SnakeModel();
+	~SnakeModel();
 
 private:
 	int gridWidth;
