@@ -20,5 +20,5 @@ void GameUpdater::timerEvent(QTimerEvent *event) {
 	}
 
 	// Update the view to show the udpated model
-	this->snakeView->repaint();
+	this->snakeView->update();
 }
