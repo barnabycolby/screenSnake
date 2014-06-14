@@ -8,12 +8,15 @@
 #include <QtCore/QThread>
 
 class GameUpdater : public QThread {
+	Q_OBJECT
 public:
 	GameUpdater(QApplication *qApplication, SnakeModel *snakeModel, SnakeView *snakeView);
 
 protected:
 	void run();
-	void timerEvent(QTimerEvent *event);
+
+public slots:
+	void updateGame();
 
 private:
 	QApplication *qApplication;

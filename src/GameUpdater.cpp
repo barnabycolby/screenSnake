@@ -1,22 +1,25 @@
 #include "GameUpdater.h"
 
+#include <QtCore/QTimer>
+
 GameUpdater::GameUpdater(QApplication *qApplication, SnakeModel *snakeModel, SnakeView *snakeView)
-: QThread(qApplication), qApplication(qApplication), snakeModel(snakeModel), snakeView(snakeView)
+: qApplication(qApplication), snakeModel(snakeModel), snakeView(snakeView)
 {}
 
 void GameUpdater::run() {
-	// Initialise a timer
-	this->startTimer(200);
+	// Start a timer
+	QTimer *timer = new QTimer();
+	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(updateGame()));
+	timer->start(200);
 
-	// Start an event loop for this thread so that it can use a timer
+	// Start an event loop so that the timer runs
 	this->exec();
 }
 
-void GameUpdater::timerEvent(QTimerEvent *event) {
+void GameUpdater::updateGame() {
 	// Update the snake model
 	if (!this->snakeModel->update()) {
 		this->qApplication->quit();
-		this->quit();
 	}
 
 	// Update the view to show the udpated model
