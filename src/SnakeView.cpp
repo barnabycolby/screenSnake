@@ -22,9 +22,6 @@ void SnakeView::paintEvent(QPaintEvent *) {
 	painter.setPen(Qt::NoPen);
 	painter.setBrush(QColor(200, 200, 200, 100));
 
-	// Draw background
-	painter.drawRect(0, 0, this->width(), this->height());
-
 	// Draw grid
 	int screenWidth = this->width();
 	int screenHeight = this->height();
@@ -38,10 +35,10 @@ void SnakeView::paintEvent(QPaintEvent *) {
 			// Set the colour based on the square
 			if (squares->at(i)->at(j) != EMPTY) {
 				if (squares->at(i)->at(j) == SNAKE) {
-					painter.setBrush(QColor(255, 0, 0, 255));
+					painter.setBrush(QColor(255, 0, 0, 150));
 				}
 				else if (squares->at(i)->at(j) == FOOD) {
-					painter.setBrush(QColor(0, 255, 0, 255));
+					painter.setBrush(QColor(0, 255, 0, 150));
 				}
 
 				// Draw the square
