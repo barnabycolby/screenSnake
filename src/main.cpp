@@ -18,10 +18,14 @@ int main(int argc, char* argv[]) {
 	gameUpdater->start();
 
 	// Start a widget to handle key events that update the model
-	SnakeController *snakeController = new SnakeController(qApplication, gameUpdater, snakeModel);
+	SnakeController *snakeController = new SnakeController(qApplication, snakeModel);
 
 	// Execute the application
 	int returnValue = qApplication->exec();
+
+	// Wait for the gameupdater thread to quit
+	gameUpdater->quit();
+	gameUpdater->wait();
 
 	// Cleanup
 	delete snakeController;

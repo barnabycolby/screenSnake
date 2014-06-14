@@ -2,8 +2,8 @@
 
 #include <QtGui/QKeyEvent>
 
-SnakeController::SnakeController(QApplication *qApplication, GameUpdater *gameUpdater, SnakeModel *snakeModel)
-: QWidget(0), qApplication(qApplication), gameUpdater(gameUpdater), snakeModel(snakeModel)
+SnakeController::SnakeController(QApplication *qApplication, SnakeModel *snakeModel)
+: QWidget(0), qApplication(qApplication), snakeModel(snakeModel)
 {
 	// Grab the keyboard to make sure that the controller gets all of the keyboard input
 	this->grabKeyboard();
@@ -38,7 +38,6 @@ void SnakeController::keyPressEvent(QKeyEvent *event) {
 
 	// We should exit on ESC
 	case Qt::Key_Escape:
-		this->gameUpdater->quit();
 		this->qApplication->quit();
 		return;
 		break;
