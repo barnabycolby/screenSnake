@@ -9,7 +9,7 @@
 
 class SnakeController : public QWidget {
 public:
-	SnakeController(QApplication *qApplication, SnakeModel *snakeModel);
+	SnakeController(QApplication *qApplication, SnakeModel *snakeModel, GameUpdater *gameUpdater);
 
 protected:
 	void keyPressEvent(QKeyEvent *event);
@@ -17,6 +17,7 @@ protected:
 private:
 	QApplication *qApplication;
 	SnakeModel *snakeModel;
+	GameUpdater *gameUpdater;
 };
 
 #endif

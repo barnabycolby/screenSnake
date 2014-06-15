@@ -6,6 +6,7 @@
 
 #include <QtWidgets/QApplication>
 #include <QtCore/QThread>
+#include <QtCore/QTimer>
 
 class GameUpdater : public QThread {
 	Q_OBJECT
@@ -18,10 +19,15 @@ protected:
 public slots:
 	void updateGame();
 
+public:
+	void togglePause();
+
 private:
 	QApplication *qApplication;
 	SnakeModel *snakeModel;
 	SnakeView *snakeView;
+	QTimer *timer;
+	int interval;
 };
 
 #endif
