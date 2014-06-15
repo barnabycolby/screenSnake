@@ -32,7 +32,7 @@ private:
 public:
 	int getGridWidth();
 	int getGridHeight();
-	vector<vector<SquareType>*> *getGrid();
+	vector<Square*> *getOccupiedSquares();
 	bool update();
 	void setDirection(SnakeDirection newDirection);
 	SnakeDirection getDirection();

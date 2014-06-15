@@ -29,29 +29,6 @@ int SnakeModel::getGridHeight() {
 	return this->gridHeight;
 }
 
-vector<vector<SquareType>*> *SnakeModel::getGrid() {
-	// Initialise the grid with empty
-	vector<vector<SquareType>*>* grid = new vector<vector<SquareType>*>();
-	for (int i = 0; i < this->getGridHeight(); i++) {
-		vector<SquareType>* row = new vector<SquareType>();
-		for (int j = 0; j < this->getGridWidth(); j++) {
-			row->push_back(EMPTY);
-		}
-		grid->push_back(row);
-	}
-
-	// Add snake squares
-	for (SnakeSquare *square : *(this->snake)) {
-		grid->at(square->getY())->at(square->getX()) = SNAKE;
-	}
-
-	// Add food square
-	grid->at(this->food->getY())->at(this->food->getX()) = FOOD;
-	
-	// Return
-	return grid;
-}
-
 void SnakeModel::generateSnake() {
 	list<SnakeSquare*> *newSnake = new list<SnakeSquare*>();
 
@@ -60,6 +37,20 @@ void SnakeModel::generateSnake() {
 	newSnake->push_front(new SnakeSquare(centerx, centery));
 
 	this->snake = newSnake;
+}
+
+vector<Square*> *SnakeModel::getOccupiedSquares() {
+	vector<Square*> *occupiedSquares = new vector<Square*>();
+
+	// Add snake squares
+	for (SnakeSquare *square : *(this->snake)) {
+		occupiedSquares->push_back(square);
+	}
+
+	// Add food square
+	occupiedSquares->push_back(this->food);
+
+	return occupiedSquares;
 }
 
 void SnakeModel::moveFood() {

@@ -29,29 +29,22 @@ void SnakeView::paintEvent(QPaintEvent *) {
 	float squareHeightExact = (float)screenHeight / (float)this->model->getGridHeight();
 	int squareWidth = (squareWidthExact * 0.8);
 	int squareHeight = (squareHeightExact * 0.8);
-	vector<vector<SquareType>*> *squares = this->model->getGrid();
-	for (int i = 0; i < this->model->getGridHeight(); i++) {
-		for (int j = 0; j < this->model->getGridWidth(); j++) {
-			// Set the colour based on the square
-			if (squares->at(i)->at(j) != EMPTY) {
-				if (squares->at(i)->at(j) == SNAKE) {
-					painter.setBrush(QColor(255, 0, 0, 150));
-				}
-				else if (squares->at(i)->at(j) == FOOD) {
-					painter.setBrush(QColor(0, 255, 0, 150));
-				}
 
-				// Draw the square
-				int x = (j * squareWidthExact) + (squareWidthExact * 0.1);
-				int y = (i * squareHeightExact) + (squareHeightExact * 0.1);
-				painter.drawRect(x, y, squareWidth, squareHeight);
-			}
+	vector<Square*> *squares = this->model->getOccupiedSquares();
+	for (Square *square : *squares) {
+		SquareType type = square->getType();
+		if (type == SNAKE) {
+			painter.setBrush(QColor(255, 0, 0, 150));
 		}
+		else if (type == FOOD) {
+			painter.setBrush(QColor(0, 255, 0, 150));
+		}
+
+		// Draw the square
+		int x = (square->getX() * squareWidthExact) + (squareWidthExact * 0.1);
+		int y = (square->getY() * squareHeightExact) + (squareHeightExact * 0.1);
+		painter.drawRect(x, y, squareWidth, squareHeight);
 	}
 
-	// Delete the grid from the heap
-	for (vector<SquareType> *row : *squares) {
-		delete row;
-	}
 	delete squares;
 }
