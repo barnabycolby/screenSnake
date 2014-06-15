@@ -35,3 +35,7 @@ void GameUpdater::togglePause() {
 		this->timer->start(this->interval);
 	}
 }
+
+bool GameUpdater::isPaused() {
+	return !this->timer->isActive();
+}

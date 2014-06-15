@@ -21,6 +21,7 @@ public slots:
 
 public:
 	void togglePause();
+	bool isPaused();
 
 private:
 	QApplication *qApplication;

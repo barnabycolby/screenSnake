@@ -16,22 +16,22 @@ void SnakeController::keyPressEvent(QKeyEvent *event) {
 	switch (event->key()) {
 	// Handle direction keys
 	case Qt::Key_Left:
-		if (currentDirection != EAST) {
+		if (currentDirection != EAST && !this->gameUpdater->isPaused()) {
 			this->snakeModel->setDirection(WEST);
 		}
 		break;
 	case Qt::Key_Up:
-		if (currentDirection != SOUTH) {
+		if (currentDirection != SOUTH && !this->gameUpdater->isPaused()) {
 			this->snakeModel->setDirection(NORTH);
 		}
 		break;
 	case Qt::Key_Right:
-		if (currentDirection != WEST) {
+		if (currentDirection != WEST && !this->gameUpdater->isPaused()) {
 			this->snakeModel->setDirection(EAST);
 		}
 		break;
 	case Qt::Key_Down:
-		if (currentDirection != NORTH) {
+		if (currentDirection != NORTH && !this->gameUpdater->isPaused()) {
 			this->snakeModel->setDirection(SOUTH);
 		}
 		break;
