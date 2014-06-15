@@ -30,6 +30,7 @@ void GameUpdater::togglePause() {
 	}
 
 	else {
+		delete this->timer;
 		this->timer = new QTimer();
 		QObject::connect(this->timer, SIGNAL(timeout()), this, SLOT(updateGame()));
 		this->timer->start(this->interval);
